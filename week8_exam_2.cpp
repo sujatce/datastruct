@@ -1,5 +1,5 @@
 #include <iostream>
-#include<
+#include <unordered_map>
 using namespace std;
 
 struct node
@@ -84,6 +84,11 @@ node* doThis(node* head)
     return newhead;
 }
 
+void delMiddleNode(node* node){
+    node->val = node->next->val;
+    node->next = node->next->next;
+}
+
 void removeDups(node* head)
 {
     if(head == nullptr)
@@ -98,10 +103,13 @@ void removeDups(node* head)
     while(current->next != nullptr)
     {
         if(hm[current->next->val])
-        {}
+        {
+            //remove duplicate
+            current->next = current->next->next;
+        }
         else{
             hm[current->next->val] = true;
-            current = current->next
+            current = current->next;
         }
     }
 }
@@ -139,7 +147,9 @@ int main(){
 
     //concat(n5,n1);
     */
-    node *iter = doThis(n1);
+   delMiddleNode(n2);
+   //removeDups(n1);
+    node *iter = n1;
 
 
 
@@ -160,6 +170,13 @@ node *iter1 = n1;
         iter1 = iter1->next;
     }
     cout<<"null"<<endl;
+
+    double arr[10];
+
+    cout<<&arr<<endl;
+    cout<<&arr[0]<<endl;
+    cout<<&arr[1]<<endl;
+    cout<<sizeof( double );
 
     return EXIT_SUCCESS;
 }
