@@ -16,13 +16,13 @@ class TreeNode{
             this->right = nullptr;
         }
         TreeNode* minimalBST(int *arr, int i, int j){ //THIS IS WRONG??? can NOT BE VOID*
-            if(i<j)
+            if(i>j) //THIS COULD BE WRONG
                 return nullptr;
             int mid = (i+j)/2; //THIS COULD BE WRONG 
-            int val = arr[mid/2];
+            int val = arr[mid]; //THIS COULD BE WRONG
             TreeNode *node = new TreeNode(val); //THIS IS WRONG?? has to pass some value - like val
-            node->right = minimalBST(arr,i,mid-1);
-            node->left = minimalBST(arr,mid+1,j);
+            node->left = minimalBST(arr,i,mid-1); //THIS COULD BE WRONG, it must be left
+            node->right = minimalBST(arr,mid+1,j); //THIS COULD BE WRONG, it must be right.
 
             return node;//val; //THIS IS WRONG -> HAS TO RETURN TREENODE*?????
         }
@@ -38,9 +38,9 @@ class TreeNode{
 
 int main()
 {
-    int arr[] = {1,2,3,4,5};
+    int arr[] = {1,2,3,4,5,6};
     TreeNode* BSTTree = new TreeNode(0);
-    BSTTree = BSTTree->minimalBST(arr,0,5);
-
+    BSTTree = BSTTree->minimalBST(arr,0,0);
+    BSTTree->inorder(BSTTree);cout<<endl;
     return EXIT_SUCCESS;
 }
