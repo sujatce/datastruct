@@ -1,5 +1,6 @@
 #include <iostream>
-#include<
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
 struct node
@@ -101,9 +102,15 @@ void removeDups(node* head)
         {}
         else{
             hm[current->next->val] = true;
-            current = current->next
+            current = current->next;
         }
     }
+}
+
+void delMiddleNode(node *node)
+{
+    node->val = node->next->val;
+    node->next = node->next->next;
 }
 
 int main(){
@@ -127,6 +134,8 @@ int main(){
     cout << "2nd node is: " <<n2->val <<endl;
     cout << "2nd node is: " <<n1->next->val <<endl;
 
+    delMiddleNode(n2);
+
     /*
     //n1=insert(n1,5);
     remove(n1,20);
@@ -139,7 +148,8 @@ int main(){
 
     //concat(n5,n1);
     */
-    node *iter = doThis(n1);
+    //node *iter = doThis(n1);
+    node *iter = n1;
 
 
 
@@ -150,7 +160,7 @@ int main(){
     }
     cout<<"null"<<endl;
 
-node *iter1 = n1;
+/*node *iter1 = n1;
 
 
 
@@ -159,7 +169,7 @@ node *iter1 = n1;
         cout<< iter1->val << "->";
         iter1 = iter1->next;
     }
-    cout<<"null"<<endl;
+    cout<<"null"<<endl;*/
 
     return EXIT_SUCCESS;
 }

@@ -1,6 +1,5 @@
 #include <iostream>
 #include <unordered_map>
-
 using namespace std;
 
 class TreeNode{
@@ -9,12 +8,13 @@ class TreeNode{
         TreeNode *left;
         TreeNode *right;
 
-        TreeNode(int x)
-        {
+        TreeNode(int x)        {
             this->val = x;//nullptr; //THIS IS WRONG????
             this->left = nullptr;
             this->right = nullptr;
         }
+
+
         TreeNode* minimalBST(int *arr, int i, int j){ //THIS IS WRONG??? can NOT BE VOID*
             if(i>j) //THIS COULD BE WRONG
                 return nullptr;
@@ -40,7 +40,7 @@ int main()
 {
     int arr[] = {1,2,3,4,5,6};
     TreeNode* BSTTree = new TreeNode(0);
-    BSTTree = BSTTree->minimalBST(arr,0,0);
+    BSTTree = BSTTree->minimalBST(arr,0,5);
     BSTTree->inorder(BSTTree);cout<<endl;
     return EXIT_SUCCESS;
 }
