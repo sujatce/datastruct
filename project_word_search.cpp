@@ -39,21 +39,12 @@ class MyVector : public WordSearch {
         if (std::find(allwords.begin(), allwords.end(), key) != allwords.end())
         {
             return 1;
-        // Element in vector.
         }
         return -1;
-        /*for(double i=0;i<allwords.size();i++)
-        {
-            if(word.compare(allwords[i])==0)
-            {
-                cout<<"Word is found"<<endl;
-                break;
-            }
-        }*/        
     }
 };
 
-class MyHashMap : public WordSearch {
+class MyHashTable : public WordSearch {    
     
 public:   
     struct node
@@ -61,14 +52,14 @@ public:
         string key = "";
         node* next = NULL;
     };
-    int hashSize = 10;
+    int buckets = 10;
     node* nodeArr;
     const int p = 31;
     const int m = 1e9 + 7;
         
-    MyHashMap(int hSize) {
-        hashSize = hSize;
-        nodeArr = new node[hashSize];
+    MyHashTable(int bucketscount) {
+        buckets = bucketscount;
+        nodeArr = new node[buckets];
     }
     
     void insert(string key) 
@@ -86,18 +77,7 @@ public:
         nodeArr[index].key = key;
         nodeArr[index].next = temp;
     }
-    int hashFunction(string key)
-    {
-        int hash_so_far = 0;
-        long p_pow = 1;
-        const int n = key.length();
-        for (int i = 0; i < n; ++i) {
-            hash_so_far = (hash_so_far + (key[i] - 'a' + 1) * p_pow) % m;
-            p_pow = (p_pow * p) % m;
-        }
-        return hash_so_far%hashSize;
-    }
-    
+
     int search(string key) {
         int index = hashFunction(key);
         node* ptr = &nodeArr[index];
@@ -108,6 +88,18 @@ public:
             ptr = ptr->next;
         }
         return -1;
+    }
+
+    int hashFunction(string key)
+    {
+        int hash_so_far = 0;
+        long p_pow = 1;
+        const int n = key.length();
+        for (int i = 0; i < n; ++i) {
+            hash_so_far = (hash_so_far + (key[i] - 'a' + 1) * p_pow) % m;
+            p_pow = (p_pow * p) % m;
+        }
+        return hash_so_far%buckets;
     }
 
 };
@@ -122,7 +114,7 @@ int main()
 	string line;
 	string word="zpotat";//"juqhib";
     
-    cout<<"Please enter the choice of followind data structure.\n\t Enter 1 for Vector Datastructure,\n\t Enter 2 for HashTable Datastructure with small HashSize of 10,\n\t Enter 3 for HashTable Datastruture with optimal hashsize of 1000"<<endl;
+    cout<<"Please enter the choice of followind data structure.\n\t Enter 1 for Vector Datastructure,\n\t Enter 2 for HashTable Datastructure with small bucket of 10,\n\t Enter 3 for HashTable Datastruture with optimal bucket of 1000"<<endl;
     int option = 1;
     cin>>option;
     WordSearch* wordDS;
@@ -134,8 +126,8 @@ int main()
     }
     else if(option == 2 || option ==3)
     {
-        int hSize = option ==2 ? 10 : 1000;
-        MyHashMap obj(hSize);
+        int bucket = option ==2 ? 10 : 1000;
+        MyHashTable obj(bucket);
         wordDS = &obj;
         cout<<"Hashtable Datastructure is chosen. "<<endl;
     }
